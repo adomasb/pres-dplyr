@@ -4,10 +4,18 @@ author: Adomas
 date: 2014-11-14
 autosize: true
 
+Plan of workshop
+========================================================
 
+- Load data set for hands-on examples and tasks
+- Familiarize with ```dplyr```:
+  - Verbs
+  - Pipe operator ```%```
+- Familiarize with ```data.table```
+- Homework
+- Additional resources
 
-
-Install packages
+Load packages
 ========================================================
 
 ```{r, results='hide'}
@@ -15,9 +23,114 @@ library(dplyr)
 library(nycflights13)
 ```
 
-h
-===================
+If you do not have it already, then
 
-```{r, results='hide'}
-head(flights, 2)
+```{r, results='hide', eval=FALSE}
+install.packages(c("dplyr", "nycflights13"))
 ```
+
+Data set
+=======================================================
+
+We will used built-in data set of all flight that departed NYC in 2013.
+Our data frame name -- ```flights```.
+
+Dimensions of data frame:
+
+```{r}
+dim(flights)
+```
+
+Take a look at first few lines of data frame with ```head()```
+
+```{r, results='hide', eval=FALSE}
+head(flights)
+```
+
+dplyr verbs
+============================================================
+
+All ```dplyr``` data manipulations are applied using functions called verbs.
+
+Using these verbs one can apply basic operations on data set provided in data frame, where columns are variables and rows are observations.
+
+These verbs follows SQL-like intuition and thus one can select columns, add condition, transform columns with another function, add new columns and *etc*.
+
+dplyr verbs 2
+===========================================================
+title: false
+
+Main verbs:
+
+- ```select()``` -- select columns from data frame by their names
+- ```filter()``` -- filter data frame by condition on specified columns
+- ```arrange()``` -- sort data frame by selected one or more columns
+- ```group_by()``` -- group by data frame by specified column
+- ```summarise()``` -- summarise multiple values into single 
+- ```mutate()``` -- add new column
+- ```distinct()``` -- return unique values
+
+First argument in any of these functions is name of data frame!
+
+Other arguments are columns name, conditions, functions and *etc*... We will see by ourselves.
+
+select()
+==============================================================
+
+Let say we want to select columns from our data frame ```flights``` -- ```origin``` and ```dest```:
+
+```{r, results='hide', eval=FALSE}
+select(flights, origin, dest)
+```
+
+However, in some cases we would like to select almost all columns, except a few, though we don't want to write almost all columns name, we rather *deselect* unnecessary. This can be done by specifying minus and column name:
+
+```{r, results='hide', eval=FALSE}
+select(flights, -air_time, -distance)
+```
+
+**TASK**: select departure and arrival times
+
+filter()
+=============================================================
+
+One could imagine as WHERE in SQL, thus if we want data of only February:
+
+```{r, results='hide', eval=FALSE}
+filter(flights, month == 2)
+```
+
+Furthermore, we are interested only in flights from JFK, hence:
+
+```{r, results='hide', eval=FALSE}
+filter(flights, month == 2, origin == "JFK")
+```
+
+Let's add March data too:
+
+```{r, results='hide', eval=FALSE}
+filter(flights, month == 2 | month == 3, origin == "JFK")
+```
+
+**TASK**: select flights from EWR and LGA, which flight more than 1000 miles
+
+arrange()
+===========================================================
+
+Arrange allows quickly sort data frame by selected columns.
+
+If we give column name as argument, then data will be sorted with increasing values of that column. Let's arrange data by day of month:
+
+```{r, results='hide', eval=FALSE}
+arrange(flights, day)
+```
+
+However, if we specify minus sign before variable, then data would be sorted in decreasing order:
+
+```{r, results='hide', eval=FALSE}
+arrange(flights, -day)
+```
+
+If we want arrange by more columns, just simply add additional column
+
+**TASK**: select data in a way that months will be increase and days will start from the last one

@@ -792,20 +792,154 @@ hljs.initHighlightingOnLoad();
 
 </section>
 <section data-transition="linear" data-transition-speed="default">
-<h3>Install packages</h3>
+<h3>Plan of workshop</h3>
+<div class="slideContent" >
+<ul>
+<li>Load data set for hands-on examples and tasks</li>
+<li>Familiarize with <code>dplyr</code>:
+
+<ul>
+<li>Verbs</li>
+<li>Pipe operator <code>%</code></li>
+</ul></li>
+<li>Familiarize with <code>data.table</code></li>
+<li>Homework</li>
+<li>Additional resources</li>
+</ul>
+
+</div>
+
+</section>
+<section data-transition="linear" data-transition-speed="default">
+<h3>Load packages</h3>
 <div class="slideContent" >
 <pre><code class="r">library(dplyr)
 library(nycflights13)
+</code></pre>
+
+<p>If you do not have it already, then</p>
+
+<pre><code class="r">install.packages(c(&quot;dplyr&quot;, &quot;nycflights13&quot;))
 </code></pre>
 
 </div>
 
 </section>
 <section data-transition="linear" data-transition-speed="default">
-<h3>h</h3>
+<h3>Data set</h3>
 <div class="slideContent" >
-<pre><code class="r">head(flights, 2)
+<p>We will used built-in data set of all flight that departed NYC in 2013.
+Our data frame name &ndash; <code>flights</code>.</p>
+
+<p>Dimensions of data frame:</p>
+
+<pre><code class="r">dim(flights)
 </code></pre>
+
+<pre><code>[1] 336776     16
+</code></pre>
+
+<p>Take a look at first few lines of data frame with <code>head()</code></p>
+
+<pre><code class="r">head(flights)
+</code></pre>
+
+</div>
+
+</section>
+<section data-transition="linear" data-transition-speed="default">
+<h3>dplyr verbs</h3>
+<div class="slideContent" >
+<p>All <code>dplyr</code> data manipulations are applied using functions called verbs.</p>
+
+<p>Using these verbs one can apply basic operations on data set provided in data frame, where columns are variables and rows are observations.</p>
+
+<p>These verbs follows SQL-like intuition and thus one can select columns, add condition, transform columns with another function, add new columns and <em>etc</em>.</p>
+
+</div>
+
+</section>
+<section data-transition="linear" data-transition-speed="default">
+
+<div class="slideContent noTitle" >
+<p>Main verbs:</p>
+
+<ul>
+<li><code>select()</code> &ndash; select columns from data frame by their names</li>
+<li><code>filter()</code> &ndash; filter data frame by condition on specified columns</li>
+<li><code>arrange()</code> &ndash; sort data frame by selected one or more columns</li>
+<li><code>group_by()</code> &ndash; group by data frame by specified column</li>
+<li><code>summarise()</code> &ndash; summarise multiple values into single </li>
+<li><code>mutate()</code> &ndash; add new column</li>
+<li><code>distinct()</code> &ndash; return unique values</li>
+</ul>
+
+<p>First argument in any of these functions is name of data frame!</p>
+
+<p>Other arguments are columns name, conditions, functions and <em>etc</em>&hellip; We will see by ourselves.</p>
+
+</div>
+
+</section>
+<section data-transition="linear" data-transition-speed="default">
+<h3>select()</h3>
+<div class="slideContent" >
+<p>Let say we want to select columns from our data frame <code>flights</code> &ndash; <code>origin</code> and <code>dest</code>:</p>
+
+<pre><code class="r">select(flights, origin, dest)
+</code></pre>
+
+<p>However, in some cases we would like to select almost all columns, except a few, though we don&#39;t want to write almost all columns name, we rather <em>deselect</em> unnecessary. This can be done by specifying minus and column name:</p>
+
+<pre><code class="r">select(flights, -air_time, -distance)
+</code></pre>
+
+<p><strong>TASK</strong>: select departure and arrival times</p>
+
+</div>
+
+</section>
+<section data-transition="linear" data-transition-speed="default">
+<h3>filter()</h3>
+<div class="slideContent" >
+<p>One could imagine as WHERE in SQL, thus if we want data of only February:</p>
+
+<pre><code class="r">filter(flights, month == 2)
+</code></pre>
+
+<p>Furthermore, we are interested only in flights from JFK, hence:</p>
+
+<pre><code class="r">filter(flights, month == 2, origin == &quot;JFK&quot;)
+</code></pre>
+
+<p>Let&#39;s add March data too:</p>
+
+<pre><code class="r">filter(flights, month == 2 | month == 3, origin == &quot;JFK&quot;)
+</code></pre>
+
+<p><strong>TASK</strong>: select flights from EWR and LGA, which flight more than 1000 miles</p>
+
+</div>
+
+</section>
+<section data-transition="linear" data-transition-speed="default">
+<h3>arrange()</h3>
+<div class="slideContent" >
+<p>Arrange allows quickly sort data frame by selected columns.</p>
+
+<p>If we give column name as argument, then data will be sorted with increasing values of that column. Let&#39;s arrange data by day of month:</p>
+
+<pre><code class="r">arrange(flights, day)
+</code></pre>
+
+<p>However, if we specify minus sign before variable, then data would be sorted in decreasing order:</p>
+
+<pre><code class="r">arrange(flights, -day)
+</code></pre>
+
+<p>If we want arrange by more columns, just simply add additional column</p>
+
+<p><strong>TASK</strong>: select data in a way that months will be increase and days will start from the last one</p>
 
 </div>
 
