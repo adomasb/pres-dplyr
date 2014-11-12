@@ -1,16 +1,17 @@
 How to solve 90 % of your data munging problems?
 ========================================================
-dplyr and data.table
--------------------
 author: Adomas
 date: 2014-11-14
+autosize: true
+
+
+
 
 Install packages
 ========================================================
 
 
 ```r
-library(data.table)
 library(dplyr)
 library(nycflights13)
 ```
