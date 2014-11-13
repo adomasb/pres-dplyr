@@ -806,7 +806,7 @@ hljs.initHighlightingOnLoad();
 <section data-transition="linear" data-transition-speed="default">
 
 <div class="column column1 slideContent noTitle" style="width: 68%;" >
-<p>That is why we will learn how to do this insanely fast, beautifully and efficiently with <code>dplyr</code>. Give your janitor mopp to <code>dplyr</code>!</p>
+<p>That is why we will learn how to do this insanely fast, beautifully and efficiently with <code>dplyr</code>. Give your janitor&#39;s mopp to <code>dplyr</code>!</p>
 
 
 </div>
@@ -875,7 +875,7 @@ Our data frame name &ndash; <code>flights</code>.</p>
 <div class="slideContent" >
 <p>All <code>dplyr</code> data manipulations are applied using functions called verbs.</p>
 
-<p>Using these verbs one can apply basic operations on data set provided in data frame, where columns are variables and rows are observations.</p>
+<p>Using these verbs one can apply basic operations on data set provided in data frame, data table or database, where columns are variables and rows are observations.</p>
 
 <p>These verbs follows SQL-like intuition and thus one can select columns, add condition, transform columns with another function, add new columns and <em>etc</em>.</p>
 
@@ -883,8 +883,8 @@ Our data frame name &ndash; <code>flights</code>.</p>
 
 </section>
 <section data-transition="linear" data-transition-speed="default">
-
-<div class="slideContent noTitle" >
+<h3>Verbs</h3>
+<div class="slideContent" >
 <p>Main verbs:</p>
 
 <ul>
@@ -892,6 +892,15 @@ Our data frame name &ndash; <code>flights</code>.</p>
 <li><code>filter()</code> &ndash; filter data frame by condition on specified columns</li>
 <li><code>arrange()</code> &ndash; sort data frame by selected one or more columns</li>
 <li><code>group_by()</code> &ndash; group by data frame by specified column</li>
+</ul>
+
+</div>
+
+</section>
+<section data-transition="linear" data-transition-speed="default">
+
+<div class="slideContent noTitle" >
+<ul>
 <li><code>summarise()</code> &ndash; summarise multiple values into single </li>
 <li><code>mutate()</code> &ndash; add new column</li>
 <li><code>distinct()</code> &ndash; return unique values</li>
@@ -930,11 +939,17 @@ Our data frame name &ndash; <code>flights</code>.</p>
 <pre><code class="r">filter(flights, month == 2)
 </code></pre>
 
-<p>Furthermore, we are interested only in flights from JFK, hence:</p>
+<p>Furthermore, if we are interested only in flights from JFK, hence:</p>
 
 <pre><code class="r">filter(flights, month == 2, origin == &quot;JFK&quot;)
 </code></pre>
 
+</div>
+
+</section>
+<section data-transition="linear" data-transition-speed="default">
+
+<div class="slideContent noTitle" >
 <p>Let&#39;s add March data too:</p>
 
 <pre><code class="r">filter(flights, month == 2 | month == 3, origin == &quot;JFK&quot;)
@@ -953,6 +968,12 @@ Our data frame name &ndash; <code>flights</code>.</p>
 <pre><code class="r">arrange(flights, day)
 </code></pre>
 
+</div>
+
+</section>
+<section data-transition="linear" data-transition-speed="default">
+
+<div class="slideContent noTitle" >
 <p>However, if we specify minus sign before variable, then data would be sorted in decreasing order:</p>
 
 <pre><code class="r">arrange(flights, -day)
@@ -960,7 +981,7 @@ Our data frame name &ndash; <code>flights</code>.</p>
 
 <p>If we want to arrange by more columns, just simply add additional column</p>
 
-<p><strong>TASK:</strong> select data in a way that months will be increase and days will start from the last one</p>
+<p><strong>TASK:</strong> select data in a way that months will be in increasing order and days will start from the last one</p>
 
 </div>
 
@@ -1052,12 +1073,20 @@ Our data frame name &ndash; <code>flights</code>.</p>
 
 <p>For example, if <code>x</code> is any kind of data, and <code>f()</code> is a function we want to apply on data, then it is <code>f(x)</code>. If we want to apply another function <code>g()</code> on later result, it would be <code>g(f(x))</code> and so forth.</p>
 
+<p>Nesting makes code unreadable and huge!</p>
+
+</div>
+
+</section>
+<section data-transition="linear" data-transition-speed="default">
+
+<div class="slideContent noTitle" >
 <p>Using pipe operator, first step could done by <code>x %&gt;% f()</code>. Moreover, if we want to add another function, then it just simple extends to:</p>
 
 <pre><code class="r">x %&gt;% f() %&gt;% g()
 </code></pre>
 
-<p>This chaining with pipe operator alows user simply stream data into pipe and after applying particular functions get the result.</p>
+<p>This chaining with pipe operator allows user simply stream data into pipe and after applying particular functions get the result.</p>
 
 </div>
 
@@ -1101,7 +1130,7 @@ Our data frame name &ndash; <code>flights</code>.</p>
 <p><strong>QUESTION:</strong> In what destination flights from JFK flew on September?</p>
 
 <pre><code class="r">filter(flights, origin == &quot;JFK&quot;, month == 9) %&gt;% 
-  select(dest) %&gt;%
+  select(dest) %&gt;% 
   distinct()
 </code></pre>
 
@@ -1120,7 +1149,7 @@ Our data frame name &ndash; <code>flights</code>.</p>
   summarise(avg.distance = mean(distance))
 </code></pre>
 
-<p><strong>TASK:</strong> How much did each carrier&#39;s planes, that flew from JFK to ATL, spend time on air (air_time) at all during last month of the year?</p>
+<p><strong>TASK:</strong> How much did each of carriers planes, that flew from JFK to ATL, spend time on air (air_time) at all during last month of the year?</p>
 
 </div>
 
@@ -1133,6 +1162,12 @@ Our data frame name &ndash; <code>flights</code>.</p>
 <pre><code class="r">flights &lt;- na.omit(flights)
 </code></pre>
 
+</div>
+
+</section>
+<section data-transition="linear" data-transition-speed="default">
+
+<div class="slideContent noTitle" >
 <p><strong>QUESTION:</strong> What is average minute of departure of each month? Then please convert this value to seconds and sort by months in descending order</p>
 
 <pre><code class="r">group_by(flights, month) %&gt;%
@@ -1169,7 +1204,7 @@ Our data frame name &ndash; <code>flights</code>.</p>
 <div class="slideContent" >
 <p>Use classical motor trend car road test data set.</p>
 
-<p>This is data set from magazine published 1974.</p>
+<p>This is data set from magazine published in 1974.</p>
 
 <pre><code class="r">library(datasets)
 data(mtcars)
@@ -1184,7 +1219,7 @@ data(mtcars)
 
 </section>
 <section data-transition="linear" data-transition-speed="default">
-<h3>Homework tasks</h3>
+<h3>Homework tasks 1</h3>
 <div class="slideContent" >
 <p><strong>TASK 1:</strong> What is average horsepower accross cars with different number of cylinders? Sort by descending order of average horsepower.</p>
 
@@ -1192,6 +1227,12 @@ data(mtcars)
 
 <p><strong>TASK 3:</strong> Additionally calculate horsepower per mpg and take square root of that number, call this metric as <code>hpmpg</code>. Then select only those cars which this metric <code>hpmpg</code> is larger than 4. Finally, select leave only mpg and hp</p>
 
+</div>
+
+</section>
+<section data-transition="linear" data-transition-speed="default">
+<h3>Homework tasks 2</h3>
+<div class="slideContent" >
 <p><strong>TASK 4:</strong> Make groups by number of cylinders, transmission type and number of gears, then calculate mean of each group. Then again make groups just by number cylinders and transmission type and take minimum average of mpg across these groups</p>
 
 <p><strong>TASK 5:</strong> I don&#39;t care about any other cars parameters, expect quater mile time and horsepower, because I do not understand anything else. Return me a table of these parameters that in top it would be the best cars by later two parameters and in the bottom &ndash; the worse. Hint: I would prefer cars with bigger horsepower</p>
