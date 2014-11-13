@@ -15,7 +15,7 @@ Maybe it is time to stop this?
 
 ========================================================
 left: 70%
-That is why we will learn how to do this insanely fast, beautifully and efficiently with `dplyr`. Give your janitor mopp to `dplyr`!
+That is why we will learn how to do this insanely fast, beautifully and efficiently with `dplyr`. Give your janitor's mopp to `dplyr`!
 
 ***
 
@@ -76,13 +76,12 @@ dplyr verbs
 
 All ```dplyr``` data manipulations are applied using functions called verbs.
 
-Using these verbs one can apply basic operations on data set provided in data frame, where columns are variables and rows are observations.
+Using these verbs one can apply basic operations on data set provided in data frame, data table or database, where columns are variables and rows are observations.
 
 These verbs follows SQL-like intuition and thus one can select columns, add condition, transform columns with another function, add new columns and *etc*.
 
-dplyr verbs 2
+Verbs
 ===========================================================
-title: false
 
 Main verbs:
 
@@ -90,6 +89,11 @@ Main verbs:
 - ```filter()``` -- filter data frame by condition on specified columns
 - ```arrange()``` -- sort data frame by selected one or more columns
 - ```group_by()``` -- group by data frame by specified column
+
+Verbs
+============================================================
+title: false
+
 - ```summarise()``` -- summarise multiple values into single 
 - ```mutate()``` -- add new column
 - ```distinct()``` -- return unique values
@@ -127,12 +131,16 @@ One could imagine as WHERE in SQL, thus if we want data of only February:
 filter(flights, month == 2)
 ```
 
-Furthermore, we are interested only in flights from JFK, hence:
+Furthermore, if we are interested only in flights from JFK, hence:
 
 
 ```r
 filter(flights, month == 2, origin == "JFK")
 ```
+
+filter2
+=============================================================
+title: false
 
 Let's add March data too:
 
@@ -153,6 +161,10 @@ Arrange allows quickly sort data frame by selected columns. If we give column na
 arrange(flights, day)
 ```
 
+arrange2
+============================================================
+title: false
+
 However, if we specify minus sign before variable, then data would be sorted in decreasing order:
 
 
@@ -162,7 +174,7 @@ arrange(flights, -day)
 
 If we want to arrange by more columns, just simply add additional column
 
-**TASK:** select data in a way that months will be increase and days will start from the last one
+**TASK:** select data in a way that months will be in increasing order and days will start from the last one
 
 group_by()
 ==========================================================
@@ -256,6 +268,12 @@ Pipe operator ```%>%``` allows user to connect or chain set of operations in spe
 
 For example, if ```x``` is any kind of data, and ```f()``` is a function we want to apply on data, then it is ```f(x)```. If we want to apply another function ```g()``` on later result, it would be ```g(f(x))``` and so forth.
 
+Nesting makes code unreadable and huge!
+
+Pipe operator 2
+================================================
+title: false
+
 Using pipe operator, first step could done by ```x %>% f()```. Moreover, if we want to add another function, then it just simple extends to:
 
 
@@ -263,7 +281,7 @@ Using pipe operator, first step could done by ```x %>% f()```. Moreover, if we w
 x %>% f() %>% g()
 ```
 
-This chaining with pipe operator alows user simply stream data into pipe and after applying particular functions get the result.
+This chaining with pipe operator allows user simply stream data into pipe and after applying particular functions get the result.
 
 Pipe operator with dplyr
 ========================================================
@@ -302,7 +320,7 @@ Example 1
 
 ```r
 filter(flights, origin == "JFK", month == 9) %>% 
-  select(dest) %>%
+  select(dest) %>% 
   distinct()
 ```
 
@@ -322,7 +340,7 @@ filter(flights, month >= 6) %>%
   summarise(avg.distance = mean(distance))
 ```
 
-**TASK:** How much did each carrier's planes, that flew from JFK to ATL, spend time on air (air_time) at all during last month of the year?
+**TASK:** How much did each of carriers planes, that flew from JFK to ATL, spend time on air (air_time) at all during last month of the year?
 
 Example 3
 =======================================================
@@ -333,6 +351,10 @@ There are some NA's in data, remove them by:
 ```r
 flights <- na.omit(flights)
 ```
+
+example3
+============================================================
+title: false
 
 **QUESTION:** What is average minute of departure of each month? Then please convert this value to seconds and sort by months in descending order
 
@@ -365,7 +387,7 @@ Homework data set
 
 Use classical motor trend car road test data set.
 
-This is data set from magazine published 1974.
+This is data set from magazine published in 1974.
 
 
 ```r
@@ -380,7 +402,7 @@ More about data set could be found:
 ?mtcars
 ```
 
-Homework tasks
+Homework tasks 1
 =======================================================
 
 **TASK 1:** What is average horsepower accross cars with different number of cylinders? Sort by descending order of average horsepower.
@@ -388,6 +410,9 @@ Homework tasks
 **TASK 2:** How much do cars with automatic transmission weights at most by different number of carburetors?
 
 **TASK 3:** Additionally calculate horsepower per mpg and take square root of that number, call this metric as `hpmpg`. Then select only those cars which this metric `hpmpg` is larger than 4. Finally, select leave only mpg and hp
+
+Homework tasks 2
+=======================================================
 
 **TASK 4:** Make groups by number of cylinders, transmission type and number of gears, then calculate mean of each group. Then again make groups just by number cylinders and transmission type and take minimum average of mpg across these groups
 
